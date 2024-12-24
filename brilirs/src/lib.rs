@@ -7,6 +7,9 @@
 #![allow(clippy::too_many_arguments)]
 #![doc = include_str!("../README.md")]
 
+mod dce;
+
+use dce::full_dce;
 use basic_block::BBProgram;
 use bril_rs::Program;
 use error::PositionalInterpError;
@@ -41,7 +44,8 @@ pub fn run_input<T: std::io::Write, U: std::io::Write>(
   } else {
     bril_rs::load_abstract_program_from_read(input).try_into()?
   };
-  let bbprog: BBProgram = prog.try_into()?;
+  let dce_prog = full_dce(prog);
+  let bbprog: BBProgram = dce_prog.try_into()?;
   check::type_check(&bbprog)?;
 
   if !check {

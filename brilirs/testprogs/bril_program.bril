@@ -1,0 +1,26 @@
+{
+    "functions": [
+        {
+            "name": "add_func",
+            "args": [{"name": "a", "type": "int"}, {"name": "b", "type":"int"}],
+            "type": "int",
+            "instrs": [ {"op": "add", "dest": "b", "args": ["a", "b"], "type": "int"}, {"op": "ret", "args": ["b"]}]
+        },
+        {
+            "name": "sub_func",
+            "args": [{"name": "a", "type": "int"}, {"name": "b", "type":"int"}],
+            "type": "int",
+            "instrs": [ {"op": "sub", "dest": "b", "args": ["a", "b"], "type": "int"}, {"op": "ret", "args": ["b"]}]
+        },
+        {
+            "name": "main",
+            "args": [],
+            "instrs": [
+                {"op": "const", "type": "int", "dest": "a", "value": 9 },
+                {"op": "const", "type": "int", "dest": "b", "value": 22},
+                {"op": "call", "type": "int", "dest": "c", "funcs": ["add_func"], "args": ["a", "b"] },
+                {"op": "print", "args": ["c"]}
+            ] 
+        }
+    ]
+}
